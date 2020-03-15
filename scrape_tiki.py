@@ -39,11 +39,12 @@ def create_db(BASE_URL, conn, c, verbose=False):
 
     class Category:
         def __init__(self, name, url, cat_id=None, parent_id=None):
-                self.name = name            # NAME
-                self.url = url              # URL
-                self.cat_id = cat_id        # ID
-                self.parent_id = parent_id  # PARENT
-                self.save_into_db()         # Write to DB
+                self.name = name                                            # NAME
+                self.url = url                                              # URL
+                self.clickable_url = '<a href="'+ url + '">' + url + '</a>' # URL with anchor tag
+                self.cat_id = cat_id                                        # ID
+                self.parent_id = parent_id                                  # PARENT
+                self.save_into_db()                                         # Write to DB
 
         def __repr__(self):
                 return  """

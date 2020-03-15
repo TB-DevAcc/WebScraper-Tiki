@@ -11,6 +11,9 @@ BASE_URL = 'https://tiki.vn/'
 conn = sqlite3.connect('tiki.db')
 c = conn.cursor()
 #create_db(BASE_URL, conn, c, verbose=True)
+
+pd.set_option('display.width', 1000)
+pd.set_option('colheader_justify', 'center')
 df = pd.read_sql_query('SELECT * FROM categories', conn)
 
 def select(selection='*', name=None):
