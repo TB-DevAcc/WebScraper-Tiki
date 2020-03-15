@@ -9,7 +9,7 @@ BASE_URL = 'https://tiki.vn/'
 conn = sqlite3.connect('tiki.db')
 c = conn.cursor()
 
-def create_db():
+def create_db(verbose=False):
     """ Creates database with alle categories from tiki.vn
         Contains:
                 - Classes & Methods: 
@@ -26,6 +26,7 @@ def create_db():
                     find_children to recursively find the child categories of the main categories
                               
     """
+    if verbose: print('\nCreating Database\n')
     def init_categories():
         query = """
                 CREATE TABLE IF NOT EXISTS categories (
@@ -85,11 +86,31 @@ def create_db():
     def find_main_tiki(): 
         soup = get_soup(BASE_URL)
 
-        main_cats = []
         for cat in soup.find_all('a', {'class':'MenuItem__MenuLink-tii3xq-1 efuIbv'}):
-            main_cats.append(Category(cat.text, cat['href']))
+            Parent = Category(cat.text, cat['href'])
+            find_children(Parent)
+
+    def find_children(Parent):
+        """ Searches recursively through Parents SubCategories and attaches them to the DB
+            Input: (Class) Category Parent 
+        """
+
+        soup = get_soup(Parent.url)
+        cats = soup.find_all('div', {'class':'list-group-item is-child'})
         
-    find_main_tiki() #TESTING
+        if cats != None: # As soon as soup can't find any more children it reverts to None and we stop the recursion
+            for cat in cats:
+                # Format input and create Child Category
+                cat.span.decompose()
+                if verbose: print(f'Finding Children of {Parent.name}\n')
+                Child = Category(cat.text.strip(), BASE_URL + cat.find('a')['href'], parent_id=Parent.cat_id)
+                if verbose: print(Child)
+                
+                find_children(Child)
+        
+
+            
+    find_main_tiki()
 
 def select(selection='*', name=None):
     if name != None:
@@ -99,5 +120,9 @@ def select(selection='*', name=None):
 def delete_all():
     return c.execute('DROP TABLE IF EXISTS categories;')
 
-create_db() #TESTING
+#TESTING
+
+#delete_all()
+#create_db(verbose=True)
 #print(select(name='Điện Thoại'))
+#print(select())
