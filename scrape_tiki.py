@@ -27,7 +27,8 @@ def create_db(BASE_URL, conn, c, verbose=False):
                 CREATE TABLE IF NOT EXISTS categories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name VARCHAR(255),
-                url TEXT, 
+                url TEXT,
+                clickable_url TEXT, 
                 parent_id INT, 
                 create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
@@ -56,10 +57,10 @@ def create_db(BASE_URL, conn, c, verbose=False):
 
         def save_into_db(self):
                 query = """
-                INSERT INTO categories (name, url, parent_id)
+                INSERT INTO categories (name, url, clickable_url, parent_id)
                 VALUES (?, ?, ?);
                 """
-                val = (self.name, self.url, self.parent_id)
+                val = (self.name, self.url, self.clickable_url, self.parent_id)
                 try:
                     c.execute(query, val)
                     self.cat_id = c.lastrowid
@@ -68,7 +69,7 @@ def create_db(BASE_URL, conn, c, verbose=False):
                 
                 conn.commit()
 
-    init_categories() # Bootstraping table
+    init_categories() # Bootstrapping table
 
     def get_soup(url):
         time.sleep(1.5)
