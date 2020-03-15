@@ -7,24 +7,26 @@ from scrape_tiki import create_db
 
 app = Flask(__name__)
 
+BASE_URL = 'https://tiki.vn/'
+conn = sqlite3.connect('tiki.db')
+c = conn.cursor()
+#create_db(BASE_URL, conn, c, verbose=True)
+df = pd.read_sql_query('SELECT * FROM categories', conn)
+
+def select(selection='*', name=None):
+    if name != None:
+        name = f' WHERE name=={name}' # TODO
+    return c.execute(f'SELECT {selection} FROM categories{name if name else ""};').fetchall()
+
+def delete_all():
+    return c.execute('DROP TABLE IF EXISTS categories;')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     search_input = ''
     if request.method == 'POST':
-      search_input = request.form.get('search_input')
-
-    try:
-      f = open("tiki.db")
-    except IOError:
-      BASE_URL = 'https://tiki.vn/'
-      conn = sqlite3.connect('tiki.db')
-      c = conn.cursor()
-      create_db(BASE_URL, conn, c)
-    finally:
-      f.close()
-      conn = sqlite3.connect('tiki.db')
-
-    df = pd.read_sql_query('SELECT * FROM categories', conn)    
+      search_input = request.form.get('search_input')  
 
     return render_template('home.html', data=df.to_html())
     

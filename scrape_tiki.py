@@ -107,14 +107,6 @@ def create_db(BASE_URL, conn, c, verbose=False):
             
     find_main_tiki()
 
-def select(selection='*', name=None):
-    if name != None:
-        name = f' WHERE name=={name}' # TODO
-    return c.execute(f'SELECT {selection} FROM categories{name if name else ""};').fetchall()
-
-def delete_all():
-    return c.execute('DROP TABLE IF EXISTS categories;')
-
 #TESTING
 
 #delete_all()
