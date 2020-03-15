@@ -1,0 +1,59 @@
+{% extends "template.html" %}
+
+{% block stylescripts %}
+<link href="https://fonts.googleapis.com/css?family=Martel:900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sen&display=swap" rel="stylesheet">
+{% endblock %}
+
+<!-- <body> -->
+{% block content %}
+
+<main>
+<div class="scroll mall-bg" data-rateY="-1.2" data-rateX="0" data-direction="horizontal"></div>
+
+<div class="container pb-5">
+    <div class="row banner mb-4">
+        <div class="col-12 text-center mt-5">
+            <h1 class="display-5">What categories does Tiki offer, you ask?</h1>
+        </div>
+    </div>
+    <div class="row input-song">
+        <div class="col-12 col-md-4 search-input bg-light px-2 py-2 rounded shadow">
+            <p class="input-description mt-3 pl-1">Search for your category</p>
+            <!-- Large Input Group -->
+            <form method="POST" role="form" action="#Lyrics">
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" class="form-control" name="search_input" id="" aria-describedby="helpId" placeholder="Enter category title here...">
+                    <small id="helpId" class="form-text text-muted pl-2">E.g. Dien Thoay</small>
+                </div>
+                
+                <input class="btn btn-success w-100 my-3" type="submit" name="submit_button" value="Submit">
+                <div class="scroll-arrow"><a href="#Lyrics"><img id="arrow" src="/static/images/arrow.png" alt="Scroll Down"></a></div>
+        </form>
+        <!-- end input group -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+    <div class="container salary-axis mt-5">
+        <div class="row">
+            <div id="Lyrics" class="col-12">
+                <!-- Data Structure {'artist': artist, 'title': title, 'description': description, 'lyric': lyric,  "writer":writer} -->
+                <div class="jumbotron text-center">
+                    <h1 class="display-3">{{data.title}}</h1>
+                    <p class="lead">{{data.artist}}</p>
+                    <p class="lyrics-description">{{data.description}}</p>
+                    <!-- <br> -->
+                    <!-- <p class="lyrics-writers">{{data.writer|safe}}</p> -->
+                </div>
+            <div class="lyrics col-12 col-md-6 mx-auto mb-5">
+                {{data.lyric|safe}}
+            </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}
+<!-- </body> -->

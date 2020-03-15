@@ -1,0 +1,66 @@
+html {
+    scroll-behavior: smooth;
+}
+
+main{
+    background: transparent;
+    font-family: 'Sen', sans-serif;
+}
+
+.mall-bg {
+    min-height: 100vh;
+    width: 100%;
+    background: url(/static/images/mall-bg.jpg) no-repeat fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+}
+
+.banner{
+    color: white;
+    font-family: 'Martel', serif;
+    background: #00000060;
+    border-radius: 0px 0px 5px 5px;
+    /* padding: 15px; */
+}
+
+.input-description{
+    font-size: 3vw;
+}
+
+.scroll-arrow{
+    text-align: center;
+}
+#arrow{
+    width: 0.8rem;
+}
+
+/* Lyrics */
+.lyrics {
+    text-align: center;
+}
+.lyrics-description{
+    text-align: justify;
+
+}
+
+.lyrics-writer{
+    font-size: 0.6rem;
+}
+
+
+/* footer */
+.footer-elements a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.6rem;
+}
+.footer-elements a:hover {
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+    font-size: 0.6rem;
+}
