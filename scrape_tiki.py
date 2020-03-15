@@ -27,8 +27,7 @@ def create_db(BASE_URL, conn, c, verbose=False):
                 CREATE TABLE IF NOT EXISTS categories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name VARCHAR(255),
-                url TEXT,
-                clickable_url TEXT, 
+                url TEXT, 
                 parent_id INT, 
                 create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
@@ -40,12 +39,11 @@ def create_db(BASE_URL, conn, c, verbose=False):
 
     class Category:
         def __init__(self, name, url, cat_id=None, parent_id=None):
-                self.name = name                                            # NAME
-                self.url = url                                              # URL
-                self.clickable_url = '<a href="'+ url + '">' + url + '</a>' # URL with anchor tag
-                self.cat_id = cat_id                                        # ID
-                self.parent_id = parent_id                                  # PARENT
-                self.save_into_db()                                         # Write to DB
+                self.name = name            # NAME
+                self.url = url              # URL
+                self.cat_id = cat_id        # ID
+                self.parent_id = parent_id  # PARENT
+                self.save_into_db()         # Write to DB
 
         def __repr__(self):
                 return  """
@@ -57,10 +55,10 @@ def create_db(BASE_URL, conn, c, verbose=False):
 
         def save_into_db(self):
                 query = """
-                INSERT INTO categories (name, url, clickable_url, parent_id)
+                INSERT INTO categories (name, url, parent_id)
                 VALUES (?, ?, ?);
                 """
-                val = (self.name, self.url, self.clickable_url, self.parent_id)
+                val = (self.name, self.url, self.parent_id)
                 try:
                     c.execute(query, val)
                     self.cat_id = c.lastrowid
@@ -69,7 +67,7 @@ def create_db(BASE_URL, conn, c, verbose=False):
                 
                 conn.commit()
 
-    init_categories() # Bootstrapping table
+    init_categories() # Bootstraping table
 
     def get_soup(url):
         time.sleep(1.5)
