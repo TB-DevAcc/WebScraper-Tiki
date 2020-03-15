@@ -4,6 +4,11 @@ import sqlite3
 import re
 import time
 
+BASE_URL = 'https://tiki.vn/'
+
+conn = sqlite3.connect('tiki.db')
+c = conn.cursor()
+
 def create_db():
     """ Creates database with alle categories from tiki.vn
         Contains:
@@ -13,7 +18,7 @@ def create_db():
 
                 - Functions: 
                     init_categories to initialize the SQL table with all Category instances
-                    select_all to show all tables in db
+                    select to run SQL SELECT on DB with default all
                     delete_all to delete the whole db
 
                     get_soup to safely request URL with sleep time and error catching % BS4 conversion
@@ -21,11 +26,6 @@ def create_db():
                     find_children to recursively find the child categories of the main categories
                               
     """
-    BASE_URL = 'https://tiki.vn/'
-
-    conn = sqlite3.connect('tiki.db')
-    c = conn.cursor()
-
     def init_categories():
         query = """
                 CREATE TABLE IF NOT EXISTS categories (
@@ -40,12 +40,6 @@ def create_db():
                 c.execute(query)
         except Exception as err:
                 print('ERROR BY CREATE TABLE', err)
-
-    def select_all():
-        return c.execute('SELECT * FROM categories;').fetchall()
-
-    def delete_all():
-        return c.execute('DELETE * FROM categories;')
 
     class Category:
         def __init__(self, name, url, cat_id=None, parent_id=None):
@@ -77,8 +71,10 @@ def create_db():
                 
                 conn.commit()
 
+    init_categories() # Bootstraping table
+
     def get_soup(url):
-        time.sleep(2)
+        time.sleep(1.5)
         try:
             req = requests.get(url).text
             soup = BeautifulSoup(req, 'html.parser')
@@ -89,11 +85,19 @@ def create_db():
     def find_main_tiki(): 
         soup = get_soup(BASE_URL)
 
-        main_cats = soup.find_all('a', {'class':'MenuItem__MenuLink-tii3xq-1 efuIbv'})
-
-        for cat in main_cats[:1]:
-            print(cat.text, '\n')
+        main_cats = []
+        for cat in soup.find_all('a', {'class':'MenuItem__MenuLink-tii3xq-1 efuIbv'}):
+            main_cats.append(Category(cat.text, cat['href']))
         
     find_main_tiki() #TESTING
 
+def select(selection='*', name=None):
+    if name != None:
+        name = f' WHERE name=={name}' # TODO
+    return c.execute(f'SELECT {selection} FROM categories{name if name else ""};').fetchall()
+
+def delete_all():
+    return c.execute('DROP TABLE IF EXISTS categories;')
+
 create_db() #TESTING
+#print(select(name='Điện Thoại'))
