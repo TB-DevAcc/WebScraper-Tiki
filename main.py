@@ -20,15 +20,21 @@ else:
   c = conn.cursor()
 
 pd.set_option('colheader_justify', 'center')
-df = pd.read_sql_query('SELECT id, name, clickable_url, parent_id FROM categories', conn)
+df = pd.read_sql_query("""
+                        SELECT p.id AS ID, p.name AS Name, p.url AS URL, c.name AS Parent, p.parent_id AS [Parent ID] FROM 
+                        categories p LEFT JOIN categories c ON p.parent_id=c.id                        
+                        """, conn)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     search_input = ''
     if request.method == 'POST':
       search_input = request.form.get('search_input')  
+      data = df.loc[df['Name']==search_input].to_html()
+    else:
+      data = df.to_html()
 
-    return render_template('home.html', data=df.to_html())
+    return render_template('home.html', data=data)
     
 if __name__ == '__main__':
   # app.run(host='0.0.0.0', port=5000, debug=True)
