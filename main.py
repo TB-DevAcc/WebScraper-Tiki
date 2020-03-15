@@ -1,3 +1,5 @@
+import os.path
+
 from flask import Flask, render_template, request, redirect
 import pandas as pd
 import sqlite3
@@ -10,9 +12,11 @@ app = Flask(__name__)
 BASE_URL = 'https://tiki.vn/'
 conn = sqlite3.connect('tiki.db')
 c = conn.cursor()
-#create_db(BASE_URL, conn, c, verbose=True)
 
-pd.set_option('display.width', 1000)
+if not os.path.isfile('tiki.db'):
+  create_db(BASE_URL, conn, c, verbose=True)
+
+#pd.set_option('display.width', 1000)
 pd.set_option('colheader_justify', 'center')
 df = pd.read_sql_query('SELECT * FROM categories', conn)
 
