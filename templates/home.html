@@ -39,16 +39,13 @@
     <div class="container salary-axis mt-5">
         <div class="row">
             <div id="Lyrics" class="col-12">
-                <!-- Data Structure {'artist': artist, 'title': title, 'description': description, 'lyric': lyric,  "writer":writer} -->
                 <div class="jumbotron text-center">
-                    <h1 class="display-3">{{data.title}}</h1>
-                    <p class="lead">{{data.artist}}</p>
-                    <p class="lyrics-description">{{data.description}}</p>
-                    <!-- <br> -->
-                    <!-- <p class="lyrics-writers">{{data.writer|safe}}</p> -->
+                    <h1 class="display-3">Tiki.vn Categories</h1>
+                    <p class="lead">This is the lead</p>
+                    <p class="lyrics-description">This is the desrciption</p>
                 </div>
-            <div class="lyrics col-12 col-md-6 mx-auto mb-5">
-                {{data.lyric|safe}}
+            <div class="lyrics col-12 col-md-12 mx-auto mb-5">
+                {{data|safe}}
             </div>
             </div>
         </div>

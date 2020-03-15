@@ -4,12 +4,7 @@ import sqlite3
 import re
 import time
 
-BASE_URL = 'https://tiki.vn/'
-
-conn = sqlite3.connect('tiki.db')
-c = conn.cursor()
-
-def create_db(verbose=False):
+def create_db(BASE_URL, conn, c, verbose=False):
     """ Creates database with alle categories from tiki.vn
         Contains:
                 - Classes & Methods: 
