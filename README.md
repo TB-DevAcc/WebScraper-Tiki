@@ -7,4 +7,4 @@ Tobias Becher <br>
 
 ## Project
 I wrote a WebApp, that scrapes tiki.vn's categories and then displays the created Database on our site. 
-This is meant to be show their categories in a DB for learning purposes.
+This is meant to show their categories in a DB for learning purposes.
