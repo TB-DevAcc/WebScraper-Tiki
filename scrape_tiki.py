@@ -70,7 +70,7 @@ def create_db(BASE_URL, conn, c, verbose=False):
     init_categories() # Bootstraping table
 
     def get_soup(url):
-        time.sleep(1)
+        #time.sleep(1)
         try:
             req = requests.get(url).text
             soup = BeautifulSoup(req, 'html.parser')
