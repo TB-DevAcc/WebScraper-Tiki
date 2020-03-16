@@ -106,10 +106,3 @@ def create_db(BASE_URL, conn, c, verbose=False):
 
             
     find_main_tiki()
-
-#TESTING
-
-#delete_all()
-#create_db(verbose=True)
-#print(select(name='Điện Thoại'))
-#print(select())
