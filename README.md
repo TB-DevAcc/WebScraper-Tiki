@@ -3,7 +3,6 @@
 </p>
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-<img align="left" src="https://img.shields.io/github/contributors/TB-DevAcc/WebScraper-Tiki" alt="Contributors Badge">
 <img align="left" src="https://img.shields.io/github/last-commit/TB-DevAcc/WebScraper-Tiki" alt="Last-commit Badge">
 
 ## :sunrise_over_mountains: Basic Overview
@@ -24,6 +23,8 @@ The complete WebApp can only be viewed when the Flask app is run. Here is a shor
 <p align="center">
     <img src="media/tiki02.jpg" witdh="60%">
 <p>
+
+The recursive WebScraper runs once, before the Flask App is run.
 
 ## :boy: Author
 
