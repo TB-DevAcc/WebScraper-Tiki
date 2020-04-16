@@ -11,7 +11,7 @@
 This is a project to create a website that scrapes the categories of [Tiki.vn](https://www.tiki.vn) and displays them in a quick database overview.  
 
 #### :date: Timeframe for the project
-The challenge was to complete the website withing 1 week. (09.03.20-16.03.20)
+The challenge was to complete the website within 1 week. (09.03.20-16.03.20)
 
 #### :clapper: Presentation
 
